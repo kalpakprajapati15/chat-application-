@@ -1,0 +1,32 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+.navbar {
+  background-color: #3498db;
+  padding: 15px;
+}
+
+.navbar-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+
+  .items {
+    display: flex;
+    justify-content: end;
+  }
+}
+
+.navbar-item {
+  color: #fff;
+  font-weight: bold;
+  margin: 0 15px;
+  cursor: pointer;
+
+  .active {
+    color: black;
+  }
+}

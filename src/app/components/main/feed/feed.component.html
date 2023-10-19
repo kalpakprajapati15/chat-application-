@@ -1,0 +1,34 @@
+<div class="feed-container height100">
+    <p-confirmDialog></p-confirmDialog>
+    <div #postButton class="new-post-btn-container">
+        <p-button (onClick)="addPost()" label="New Post" severity="success"></p-button>
+    </div>
+    <div appResize [relativeElement]="postButton" class="feed-cards-container">
+        <ng-container *ngFor="let post of (posts | async)">
+            <div class="card-container">
+                <p-card [style]="{ width: '360px' }">
+                    <ng-template pTemplate="header">
+                        <div style="padding: 1rem;">
+                            <span style="font-weight: bold; font-size: 1.3rem">{{post.title}}</span>
+                            <i class="pi pi-pencil" style="cursor: pointer; float: right" (click)="editPost(post._id)"></i>
+                        </div>
+                        
+                    </ng-template>
+                    <p>
+                        {{post.content}}
+                    </p>
+                    <ng-template pTemplate="footer">
+                        <div style="display: flex;
+                        justify-content: space-between;
+                        align-items: center">
+                            <span style="font-weight: bold;">Created by {{post.createdBy.name}}</span>
+                            <p-button (onClick)="delete(post._id)" label="Delete" severity="danger"></p-button>
+                        </div>
+                    </ng-template>
+                </p-card>
+            </div>
+        </ng-container>
+    </div>
+    <ngx-loading [show]="loading"
+        [config]="{ backdropBorderRadius: '3px', animationType: ngxLoadingAnimationTypes.wanderingCubes }"></ngx-loading>
+</div>

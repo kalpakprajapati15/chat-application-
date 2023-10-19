@@ -1,0 +1,16 @@
+<div class="login-container">
+    <div class="login-form-container" [formGroup]="baseForm">
+        <h2>Login</h2>
+        <div class="input-group">
+            <label for="email">Email:</label>
+            <input type="text" id="email" formControlName="email" placeholder="Enter your email" pInputText pTooltip tooltipEvent="focus"
+                appTooltipError>
+        </div>
+        <div class="input-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" formControlName="password" placeholder="Enter your password" pInputText pTooltip
+                tooltipEvent="focus" appTooltipError>
+        </div>
+        <p-button severity="success" (onClick)="login()">Login</p-button>
+    </div>
+</div>

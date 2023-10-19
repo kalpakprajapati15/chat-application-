@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+
+// body {
+//   font-family: Arial, sans-serif;
+// }
+
+html {
+    height: 100%;
+
+    body {
+        margin: 0;
+        height: 100%;
+    }
+}
+
+.height100 {
+    height: 100%;
+}
+
+.width100 {
+    width: 100%;
+}
+
+.p-inputtext.ng-touched.ng-invalid {
+    border-color: #e24c4c;
+}

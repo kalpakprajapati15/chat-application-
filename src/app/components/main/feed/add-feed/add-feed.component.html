@@ -1,0 +1,19 @@
+<div class="add-feed-container" [formGroup]="baseForm">
+    <div class="title-container">
+        <label for="title">Title</label>
+        <br>
+        <input pInputText type="text" id="title" formControlName="title" pTooltip tooltipEvent="focus" appTooltipError>
+    </div>
+    <div class="content-container">
+        <label for="content">Content</label>
+        <br>
+        <input pInputText type="text" id="content" formControlName="content" pTooltip tooltipEvent="focus"
+            appTooltipError>
+    </div>
+    <div class="button-container">
+        <p-button (onClick)="close()" severity="danger">Cancel</p-button>
+        <p-button (onClick)="save()" severity="success">Save</p-button>
+    </div>
+    <ngx-loading [show]="loading"
+        [config]="{ backdropBorderRadius: '3px', animationType: ngxLoadingAnimationTypes.wanderingCubes }"></ngx-loading>
+</div>

@@ -1,0 +1,17 @@
+.feed-container {
+    .new-post-btn-container {
+        display: flex;
+        padding-top: 1rem;
+        p-button {
+            margin: auto;
+        }
+    }
+    .feed-cards-container {
+        overflow-y: auto;
+        padding-top: 1rem;
+    }
+    .card-container {
+        display: inline-block;
+        margin: 1rem 0.5rem;
+    }
+}
