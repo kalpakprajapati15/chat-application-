@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngxs/store';
+import { Logout } from 'src/app/states/auth.state';
 
 @Component({
   selector: 'app-navbar',
@@ -8,13 +10,12 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent {
 
-  constructor(private router: Router) {
+  constructor(private store: Store) {
 
   }
+
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('email');
-    this.router.navigate(['login']);
+    this.store.dispatch(new Logout());
   }
 
 }

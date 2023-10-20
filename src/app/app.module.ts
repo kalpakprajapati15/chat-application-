@@ -20,6 +20,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ApiErrorDialogComponent } from './components/api-error-dialog/api-error-dialog.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { TokenInterceptor } from './interceptor/token.interceptor';
+import { NgxsModule } from '@ngxs/store';
+import { AuthState } from './states/auth.state';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 
 export const baseUrl = new InjectionToken<string>('baseUrl');
 
@@ -41,11 +45,14 @@ export const baseUrl = new InjectionToken<string>('baseUrl');
     TooltipErrorModule,
     ToastModule,
     ReactiveFormsModule,
-    NgxLoadingModule.forRoot({})
+    NgxLoadingModule.forRoot({}),
+    NgxsModule.forRoot([AuthState]),
+    NgxsStoragePluginModule.forRoot({key: AuthState}), // to store this store even on reload
+    NgxsReduxDevtoolsPluginModule.forRoot({ name: 'KPSTATE' })
   ],
   providers: [
     { provide: baseUrl, useValue: environment.baseUrl },
-    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     MessageService,
     DialogService
   ],

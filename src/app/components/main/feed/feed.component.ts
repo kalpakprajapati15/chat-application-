@@ -64,7 +64,8 @@ export class FeedComponent implements OnDestroy {
   }
 
   editPost(id: any) {
-    this.postService.getById(id).subscribe(response => {
+    this.loading = true;
+    this.postService.getById(id).pipe(finalize(() => this.loading = false)).subscribe(response => {
       const addPostRef = this.dialogService.open(AddFeedComponent, { data: response.result, header: response.result.title });
 
       addPostRef.onClose.pipe(takeUntil(this.destroyed$.asObservable())).subscribe(shouldRefresh => {

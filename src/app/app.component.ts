@@ -8,6 +8,7 @@ import { PrimeNGConfig } from 'primeng/api';
 })
 export class AppComponent {
   title = 'node_api';
+
   constructor(private primengConfig: PrimeNGConfig) {
     this.primengConfig.ripple = true;
   }

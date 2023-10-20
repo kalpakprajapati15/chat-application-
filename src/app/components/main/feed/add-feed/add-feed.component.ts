@@ -7,6 +7,8 @@ import { take, finalize } from 'rxjs/operators'
 import { MessageService } from 'primeng/api';
 import { focusInvalidControl } from 'src/app/utils/utils';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
+import { Store } from '@ngxs/store';
+import { AuthState } from 'src/app/states/auth.state';
 
 @Component({
   selector: 'app-add-feed',
@@ -23,7 +25,7 @@ export class AddFeedComponent implements OnInit {
 
   ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
 
-  constructor(public elementRef: ElementRef, public dialogRef: DynamicDialogRef, private fb: FormBuilder, private postService: PostService, private messageService: MessageService, private dialogConfig: DynamicDialogConfig) {
+  constructor(public elementRef: ElementRef,private store: Store, public dialogRef: DynamicDialogRef, private fb: FormBuilder, private postService: PostService, private messageService: MessageService, private dialogConfig: DynamicDialogConfig) {
     this.baseForm = this.fb.group({
       _id: [null],
       title: [null, Validators.required],
@@ -45,7 +47,7 @@ export class AddFeedComponent implements OnInit {
   save() {
     if (this.baseForm.valid) {
       const formValue = this.baseForm.value;
-      formValue.createdBy = localStorage.getItem('email');
+      formValue.createdBy = this.store.selectSnapshot(AuthState.email);
       this.loading = true;
       this.postService.post(formValue).pipe(take(1), finalize(() => this.loading = false)).subscribe(() => {
         this.messageService.add({ severity: 'success', summary: 'Post', detail: formValue._id ? 'Post updated successfully' : 'Post added successfully' });
