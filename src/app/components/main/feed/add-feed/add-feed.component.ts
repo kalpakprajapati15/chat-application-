@@ -1,14 +1,13 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { PostService } from 'src/app/services/post.service';
-import { Post } from '../../../../models/post.model';
-import { take, finalize } from 'rxjs/operators'
-import { MessageService } from 'primeng/api';
-import { focusInvalidControl } from 'src/app/utils/utils';
-import { ngxLoadingAnimationTypes } from 'ngx-loading';
+import { Component, ElementRef, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngxs/store';
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
+import { MessageService } from 'primeng/api';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { finalize, take } from 'rxjs/operators';
+import { PostService } from 'src/app/services/post.service';
 import { AuthState } from 'src/app/states/auth.state';
+import { focusInvalidControl } from 'src/app/utils/utils';
 
 @Component({
   selector: 'app-add-feed',

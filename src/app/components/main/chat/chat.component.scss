@@ -1,0 +1,51 @@
+.chat-container {
+    .new-contact-btn-container {
+        display: flex;
+        padding-top: 1rem;
+
+        p-button {
+            margin: auto;
+        }
+    }
+
+    // .chat-main-container {
+    //     .chat-contacts-container {
+    //         .chat-contacts-list {
+    //             background: #ffffff;
+    //             border: 1px solid #dee2e6;
+    //             border-width: 0 0 2px 0;
+
+    //             display: inline-flex;
+    //             min-width: 100%;
+    //             margin: 0;
+    //             padding: 0;
+    //             list-style-type: none;
+            
+
+    //             li {
+    //                 margin-right: 0;
+
+    //                 a {
+    //                     border: solid #dee2e6;
+    //                     border-width: 0 0 2px 0;
+    //                     border-color: transparent transparent #dee2e6 transparent;
+    //                     background: #ffffff;
+    //                     color: #6c757d;
+    //                     padding: 1.25rem;
+    //                     font-weight: 700;
+    //                     border-top-right-radius: 6px;
+    //                     border-top-left-radius: 6px;
+    //                     transition: box-shadow 0.2s;
+    //                     margin: 0 0 -2px 0;
+
+    //                     &.active {
+    //                         background: #ffffff;
+    //                         border-color: #3B82F6;
+    //                         color: #3B82F6;
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+}

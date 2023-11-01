@@ -1,10 +1,15 @@
 <nav class="navbar">
     <ul class="navbar-list">
-        <div class="logo">
+        <div style="margin: auto 0;" class="logo">
             <li class="navbar-item">Feeds Logo</li>
         </div>
         <div class="items">
             <li class="navbar-item" (click)="logout()">Logout</li>
+            <li class="navbar-item" routerLink="/app/chat">Open Chat</li>
+            <li class="navbar-item" routerLink="/app/feed">Open Feed</li>
+            <ng-container *ngIf="(loginName$ | async) as loginName">
+                <div class="loginName" [pTooltip]="loginName"><span>{{getLoginNameInitial(loginName)}}</span></div>
+            </ng-container>
         </div>
     </ul>
 </nav>

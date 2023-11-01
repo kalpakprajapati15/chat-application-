@@ -1,12 +1,14 @@
-import { Component, OnDestroy, Input } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, OnDestroy } from '@angular/core';
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
+import { ConfirmationService, MessageService, } from 'primeng/api';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Observable, Subject, map } from 'rxjs';
+import { finalize, startWith, switchMap, takeUntil } from 'rxjs/operators';
+import { PostSocketService } from 'src/app/services/post-socket.service';
 import { PostService } from 'src/app/services/post.service';
 import { Post } from '../../../models/post.model';
-import { Observable, map, Subject } from 'rxjs';
-import { takeUntil, switchMap, startWith, finalize, delay } from 'rxjs/operators';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AddFeedComponent } from './add-feed/add-feed.component';
-import { ConfirmationService, MessageService, } from 'primeng/api';
-import { ngxLoadingAnimationTypes } from 'ngx-loading';
 
 @Component({
   selector: 'app-feed',
@@ -26,13 +28,17 @@ export class FeedComponent implements OnDestroy {
 
   ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
 
-  constructor(private messageService: MessageService, private postService: PostService, private dialogService: DialogService, private confirmationService: ConfirmationService) {
+  constructor(private messageService: MessageService, private postService: PostService, private dialogService: DialogService, private confirmationService: ConfirmationService, private postSocketService: PostSocketService) {
     this.posts = this.refresh$.pipe(startWith(true), switchMap(value => {
       this.loading = true;
       return this.postService.fetch().pipe(map((response) => {
         return response.result;
       }), finalize(() => this.loading = false));
     }))
+
+    this.postSocketService.getCreatePost().pipe(takeUntilDestroyed()).subscribe((response) => {
+      this.refresh$.next(true);
+    })
   }
 
   addPost() {

@@ -24,6 +24,7 @@ import { NgxsModule } from '@ngxs/store';
 import { AuthState } from './states/auth.state';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+import { SocketIoModule } from 'ngx-socket-io';
 
 export const baseUrl = new InjectionToken<string>('baseUrl');
 
@@ -47,8 +48,9 @@ export const baseUrl = new InjectionToken<string>('baseUrl');
     ReactiveFormsModule,
     NgxLoadingModule.forRoot({}),
     NgxsModule.forRoot([AuthState]),
-    NgxsStoragePluginModule.forRoot({key: AuthState}), // to store this store even on reload
-    NgxsReduxDevtoolsPluginModule.forRoot({ name: 'KPSTATE' })
+    NgxsStoragePluginModule.forRoot({ key: AuthState }), // to store this store even on reload
+    NgxsReduxDevtoolsPluginModule.forRoot({ name: 'KPSTATE' }),
+    SocketIoModule.forRoot({ url: 'http://localhost:8080' })
   ],
   providers: [
     { provide: baseUrl, useValue: environment.baseUrl },

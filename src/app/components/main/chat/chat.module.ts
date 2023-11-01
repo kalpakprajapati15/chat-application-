@@ -2,45 +2,38 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxLoadingModule } from 'ngx-loading';
-import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
+import { TabViewModule } from 'primeng/tabview';
+import { AddContactComponent } from './add-contact/add-contact.component';
+import { ChatRoutingModule } from './chat-routing.module';
+import { ChatComponent } from './chat.component';
 import { TooltipModule } from 'primeng/tooltip';
-
 import { ResizeModule } from 'src/app/directives/resize/resize.module';
 import { TooltipErrorModule } from 'src/app/directives/tooltip-error/resize.module';
-import { AddFeedComponent } from './add-feed/add-feed.component';
-import { FeedComponent } from './feed.component';
+import { ChatMessageComponent } from './chat-message/chat-message.component';
+
+
+
 @NgModule({
-  bootstrap: [
-    FeedComponent
-  ],
   declarations: [
-    FeedComponent,
-    AddFeedComponent
+    ChatComponent,
+    AddContactComponent,
+    ChatMessageComponent
   ],
   imports: [
     CommonModule,
-    CardModule,
-    ButtonModule,
+    ChatRoutingModule,
     DynamicDialogModule,
+    ButtonModule,
     InputTextModule,
-    ReactiveFormsModule,
-    ResizeModule,
-    ConfirmDialogModule,
     TooltipModule,
     TooltipErrorModule,
+    ResizeModule,
     NgxLoadingModule,
-  ],
-  exports: [
-    FeedComponent,
-    AddFeedComponent
-  ],
-  providers: [
-    ConfirmationService
+    ReactiveFormsModule,
+    TabViewModule
   ]
 })
-export class FeedModule { }
+export class ChatModule { }

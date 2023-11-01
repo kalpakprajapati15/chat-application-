@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injector } from '@angular/core';
-import { baseUrl } from '../app.module';
+import { baseUrl } from '../../app.module';
 import { Observable, of } from 'rxjs'
 import { catchError, map, tap } from 'rxjs/operators'
 import { DialogService } from 'primeng/dynamicdialog';
-import { ApiErrorDialogComponent } from '../components/api-error-dialog/api-error-dialog.component';
+import { ApiErrorDialogComponent } from '../../components/api-error-dialog/api-error-dialog.component';
 
 
 export interface ApiResponse<T> {
@@ -31,9 +31,20 @@ export abstract class ApiService<T> {
         this.dialogService = injector.get(DialogService);
     }
 
-    private getUrl() {
-        const url = this.baseUrl + this.url;
+    private getUrl(replaceUrl?: string, subPath: string = '') {
+        const appendUrl = (replaceUrl ? replaceUrl : this.url) + subPath;
+        const url = this.baseUrl + appendUrl;
         return url;
+    }
+
+    get<P = T>(params?: any, headers?: any, replaceUrl?: string, subPath?: string): Observable<ApiResponse<P>> {
+        const url = this.getUrl(replaceUrl, subPath);
+        return this.http.get(url, { params: params, headers: headers }).pipe(tap(this.openErrorDialog.bind(this)), map((response: any) => {
+            return response;
+        }), catchError((err) => {
+            this.openErrorDialog(err.error)
+            throw err;
+        }));;
     }
 
     getById(id: string, params?: any): Observable<ApiResponse<T>> {
@@ -45,6 +56,7 @@ export abstract class ApiService<T> {
             throw err;
         }));
     }
+
     fetch(params?: any, headers?: any): Observable<ApiResponse<T[]>> {
         const url = this.getUrl() + '/fetch';
         return this.http.get(url, { params: params, headers: headers }).pipe(tap(this.openErrorDialog.bind(this)), map((response: any) => {
@@ -55,8 +67,8 @@ export abstract class ApiService<T> {
         }));
     }
 
-    post<P = T>(postObj: any, params?: any, headers?: any): Observable<ApiResponse<P>> {
-        const url = this.getUrl();
+    post<P = T>(postObj: any, params?: any, headers?: any, replaceUrl?: string, subPath?: string): Observable<ApiResponse<P>> {
+        const url = this.getUrl(replaceUrl, subPath);
         return this.http.post(url, postObj, { params: params, headers: headers }).pipe(tap(this.openErrorDialog.bind(this)), map((response: any) => {
             return response;
         }), catchError((err) => {

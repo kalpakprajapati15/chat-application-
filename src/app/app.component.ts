@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
+import { Socket } from 'ngx-socket-io'
+import { PostSocketService } from './services/post-socket.service';
 
 @Component({
   selector: 'app-root',

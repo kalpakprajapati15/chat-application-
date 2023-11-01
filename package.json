@@ -22,6 +22,7 @@
     "@ngxs/storage-plugin": "^3.8.1",
     "@ngxs/store": "^3.8.1",
     "ngx-loading": "^15.0.0",
+    "ngx-socket-io": "^4.5.1",
     "primeicons": "^6.0.1",
     "primeng": "^16.5.0",
     "rxjs": "~7.8.0",

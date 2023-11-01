@@ -17,6 +17,19 @@ body {
   .items {
     display: flex;
     justify-content: end;
+    align-items: center;
+  }
+
+  .loginName {  
+    cursor: pointer;
+    border: #ffffff solid 1px;
+    border-radius: 50%;
+    font-weight: bold;
+    height: 30px;
+    display: flex;
+    width: 30px;
+    align-items: center;
+    justify-content: center;
   }
 }
 

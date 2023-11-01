@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Actions, Store, ofActionSuccessful } from '@ngxs/store';
-import { Subject } from 'rxjs';
+import { Actions, Select, Store, ofActionSuccessful } from '@ngxs/store';
+import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AuthState, Login } from 'src/app/states/auth.state';
 import { focusInvalidControl } from 'src/app/utils/utils';
@@ -36,7 +36,8 @@ export class LoginComponent implements OnDestroy {
 
   login() {
     if (this.baseForm.valid) {
-      this.store.dispatch(new Login({ password: this.baseForm.value.password, email: this.baseForm.value.email }));
+      const socketId = this.store.selectSnapshot(AuthState.socketId)
+      this.store.dispatch(new Login({ password: this.baseForm.value.password, email: this.baseForm.value.email, socketId: socketId }));
       // this.authService.post<{ email: string, token: string }>(this.baseForm.value).pipe(take(1)).subscribe(response => {
       //   if (response.status === 'Success') {
       //     localStorage.setItem('email', response.result.email);

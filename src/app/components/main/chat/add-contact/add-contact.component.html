@@ -1,0 +1,12 @@
+<div class="add-feed-container" [formGroup]="baseForm">
+    <div class="title-container">
+        <label for="title">Email</label>
+        <br>
+        <input pInputText type="text" id="email" formControlName="email" pTooltip tooltipEvent="focus" appTooltipError>
+    </div>
+    <div class="button-container">
+        <p-button (onClick)="save()" severity="success">Save</p-button>
+    </div>
+    <ngx-loading [show]="loading"
+        [config]="{ backdropBorderRadius: '3px', animationType: ngxLoadingAnimationTypes.wanderingCubes }"></ngx-loading>
+</div>

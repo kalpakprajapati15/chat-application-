@@ -5,6 +5,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MainComponent } from './main.component';
 import { ResizeModule } from 'src/app/directives/resize/resize.module';
 import { FeedModule } from './feed/feed.module';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { FeedModule } from './feed/feed.module';
     CommonModule,
     MainRoutingModule,
     ResizeModule,
+    TooltipModule,
     FeedModule
   ],
   bootstrap:[

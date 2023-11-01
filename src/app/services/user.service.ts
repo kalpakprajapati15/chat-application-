@@ -4,9 +4,9 @@ import { ApiService } from "./base/api.service";
 import { Injectable, Injector } from '@angular/core'
 
 @Injectable({ providedIn: "root" })
-export class AuthService extends ApiService<User> {
+export class UserService extends ApiService<User> {
 
-    url: string = 'login';
+    url: string = 'user';
 
     constructor(private injector: Injector) {
         super(injector);

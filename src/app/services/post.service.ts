@@ -1,5 +1,5 @@
 import { Post } from "../models/post.model";
-import { ApiService } from "./api.service";
+import { ApiService } from "./base/api.service";
 import { Injectable, Injector } from '@angular/core'
 
 @Injectable({ providedIn: "root" })

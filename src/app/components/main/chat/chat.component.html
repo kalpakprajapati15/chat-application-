@@ -1,0 +1,18 @@
+<div class="chat-container height100">
+    <div #postButton class="new-contact-btn-container">
+        <p-button (onClick)="addContact()" label="New Contact" severity="success"></p-button>
+    </div>
+    <div class="chat-main-container" appResize [relativeElement]="postButton">
+        <div class="chat-contacts-container">
+            <p-tabView>
+                <p-tabPanel *ngFor="let user of users$ | async" [header]="user.name">
+                    <div>
+                        name: {{user.name}}
+                    </div>
+                </p-tabPanel>
+            </p-tabView>
+        </div>
+    </div>
+    <ngx-loading [show]="loading"
+        [config]="{ backdropBorderRadius: '3px', animationType: ngxLoadingAnimationTypes.wanderingCubes }"></ngx-loading>
+</div>

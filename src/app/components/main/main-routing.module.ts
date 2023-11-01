@@ -18,6 +18,10 @@ const routes: Routes = [
                 path: 'feed',
                 component: FeedComponent,
                 canActivate: [AuthGuard]
+            },
+            {
+                path: 'chat',
+                loadChildren: () => import('./chat/chat.module').then(m => m.ChatModule)
             }
         ]
     }
