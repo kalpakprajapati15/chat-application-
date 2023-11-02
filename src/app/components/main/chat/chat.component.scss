@@ -2,50 +2,70 @@
     .new-contact-btn-container {
         display: flex;
         padding-top: 1rem;
+        padding-bottom: 1rem;
 
         p-button {
             margin: auto;
         }
     }
 
-    // .chat-main-container {
-    //     .chat-contacts-container {
-    //         .chat-contacts-list {
-    //             background: #ffffff;
-    //             border: 1px solid #dee2e6;
-    //             border-width: 0 0 2px 0;
+    .chat-main-container {
+        display: flex;
+        border-top: #3498db solid 1px;
 
-    //             display: inline-flex;
-    //             min-width: 100%;
-    //             margin: 0;
-    //             padding: 0;
-    //             list-style-type: none;
-            
+        .chat-contacts-container {
+            width: 25%;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            border-right: black solid 1px;
 
-    //             li {
-    //                 margin-right: 0;
+            .chat-contact-item {
+                min-height: 15%;
 
-    //                 a {
-    //                     border: solid #dee2e6;
-    //                     border-width: 0 0 2px 0;
-    //                     border-color: transparent transparent #dee2e6 transparent;
-    //                     background: #ffffff;
-    //                     color: #6c757d;
-    //                     padding: 1.25rem;
-    //                     font-weight: 700;
-    //                     border-top-right-radius: 6px;
-    //                     border-top-left-radius: 6px;
-    //                     transition: box-shadow 0.2s;
-    //                     margin: 0 0 -2px 0;
+                .chat-contact-item-main-container {
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    padding-left: 1rem;
 
-    //                     &.active {
-    //                         background: #ffffff;
-    //                         border-color: #3B82F6;
-    //                         color: #3B82F6;
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
+                    border-bottom: #3498db solid 1px;
+
+                    &.active {
+                        font-weight: bold;
+                    }
+
+                    .chat-contact-initials {
+                        border: #3498db solid 1px;
+                        border-radius: 50%;
+                        font-weight: bold;
+                        height: 60px;
+                        display: flex;
+                        width: 60px;
+                        margin-right: 2.5rem;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+            }
+
+            // .p-tabview {
+
+            //     &.p-component {
+            //         height: 100%;
+            //     }
+
+            //     .p-tabview-panels {
+            //         height: calc(100% - 57.2px);
+            //         .p-tabview-panel{
+            //             height: 100%;
+            //         }
+            //     }
+            // }
+        }
+
+        .chat-message-container {
+            width: 75%;
+        }
+    }
 }

@@ -4,13 +4,13 @@
     </div>
     <div class="chat-main-container" appResize [relativeElement]="postButton">
         <div class="chat-contacts-container">
-            <p-tabView>
-                <p-tabPanel *ngFor="let user of users$ | async" [header]="user.name">
-                    <div>
-                        name: {{user.name}}
-                    </div>
-                </p-tabPanel>
-            </p-tabView>
+
+            <div class="chat-contact-item" *ngFor="let user of users$ | async">
+                <app-contact-list-item [user]="user"></app-contact-list-item>
+            </div>
+        </div>
+        <div class="chat-message-container">
+            <app-chat-message [user]="chatUIService.currentUser()"></app-chat-message>
         </div>
     </div>
     <ngx-loading [show]="loading"

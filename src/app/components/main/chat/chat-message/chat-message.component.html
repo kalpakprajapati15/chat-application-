@@ -1,1 +1,25 @@
-<p>chat-message works!</p>
+<div class="chat-message-main-container">
+    <ng-container *ngIf="user; else noUserTemplate">
+        <ng-container *ngIf="(messages$ | async) as messages">
+            <div *ngIf="messages.length" class="messages-container">
+                <div *ngFor="let message of messages" class="single-message"
+                    [ngClass]="[message.fromId === user._id ? 'align-left' : 'align-right']">
+                    {{message.text}}
+                </div>
+            </div>
+            <div *ngIf="!messages.length">
+                No conversations yet.
+            </div>
+        </ng-container>
+
+        <div class="message-text-input">
+            <input type="text" pInputText [formControl]="chatText" (keydown)="keyDownHandler($event)">
+        </div>
+    </ng-container>
+</div>
+
+<ng-template #noUserTemplate>
+    <div>
+        Choose a contact to start conversation
+    </div>
+</ng-template>

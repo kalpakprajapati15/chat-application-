@@ -1,0 +1,7 @@
+<div class="chat-contact-item-main-container height100" (click)="contactItemCLick(user)"
+    [ngClass]="{'active': chatUIService.currentUser()?._id === user._id}">
+    <div class="chat-contact-initials"><span>{{user.name[0]}}</span></div>
+    <div>
+        {{user.name}}
+    </div>
+</div>

@@ -69,6 +69,11 @@ export class AuthState {
         return state.socketId;
     }
 
+    @Selector()
+    static user(state: AuthStateModel): User {
+        return state.user;
+    }
+
     constructor(private authService: AuthService, private postSocketService: PostSocketService, private userService: UserService) { }
 
     @Action(Login)
