@@ -4,4 +4,5 @@
     <div>
         {{user.name}}
     </div>
+    <div class="unread-badge" *ngIf="unreadMsgCount()">{{unreadMsgCount()}}</div>
 </div>

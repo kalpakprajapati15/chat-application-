@@ -1,12 +1,12 @@
-import { Injectable, signal, computed, effect } from "@angular/core";
-import { User } from "src/app/models/user.model";
-import { ChatSocketService } from "./chat-socket.service";
-import { ChatApiService } from "./chat-api.service";
-import { ApiResponse } from "src/app/services/base/api.service";
-import { Observable, take } from "rxjs";
-import { Message, UserMessageMap } from "src/app/models/message.model";
+import { Injectable, computed, signal } from "@angular/core";
 import { Store } from "@ngxs/store";
+import { Observable, Subject, finalize, take } from "rxjs";
+import { Message, UserMessageMap } from "src/app/models/message.model";
+import { User } from "src/app/models/user.model";
+import { ApiResponse } from "src/app/services/base/api.service";
 import { AuthState } from "src/app/states/auth.state";
+import { ChatApiService } from "./chat-api.service";
+import { ChatSocketService } from "./chat-socket.service";
 
 @Injectable()
 export class ChatUIService {
@@ -26,6 +26,8 @@ export class ChatUIService {
         return [];
     });
 
+    chatLoading$: Subject<boolean> = new Subject();
+
     constructor(public chatSocketService: ChatSocketService, public chatApiService: ChatApiService, public store: Store) {
     }
 
@@ -35,7 +37,8 @@ export class ChatUIService {
             const messageMap = this.messageMap();
             // set messagemap of that user if not set already. 
             if (!messageMap[user._id]) {
-                this.getMessages().pipe(take(1)).subscribe(response => {
+                this.chatLoading$.next(true);
+                this.getMessages().pipe(take(1), finalize(() => this.chatLoading$.next(false))).subscribe(response => {
                     this.messageMap.mutate((oMap) => {
                         oMap[user._id] = response.result;
                     })
@@ -58,6 +61,10 @@ export class ChatUIService {
 
     getMessages(): Observable<ApiResponse<Message[]>> {
         return this.chatApiService.get<Message[]>({ fromId: this.currentUser()._id });
+    }
+
+    getContactAdded() {
+        return this.chatSocketService.getContactAdded();
     }
 
 }

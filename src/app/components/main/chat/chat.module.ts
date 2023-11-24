@@ -16,6 +16,8 @@ import { ChatMessageComponent } from './chat-message/chat-message.component';
 import { ChatUIService } from './services/chat-ui.service';
 import { ChatSocketService } from './services/chat-socket.service';
 import { ContactListItemComponent } from './contact-list-item/contact-list-item.component';
+import { ConfirmationService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 
@@ -32,6 +34,7 @@ import { ContactListItemComponent } from './contact-list-item/contact-list-item.
     DynamicDialogModule,
     ButtonModule,
     InputTextModule,
+    ConfirmDialogModule,
     TooltipModule,
     TooltipErrorModule,
     ResizeModule,
@@ -39,6 +42,6 @@ import { ContactListItemComponent } from './contact-list-item/contact-list-item.
     ReactiveFormsModule,
     TabViewModule
   ],
-  providers: [ChatUIService, ChatSocketService]
+  providers: [ChatUIService, ChatSocketService, ConfirmationService]
 })
 export class ChatModule { }

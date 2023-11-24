@@ -6,6 +6,8 @@
     padding: 1rem;
 
     .messages-container {
+        overflow-y: auto;
+        padding-bottom: 1rem;
         background-color: #fff;
 
 

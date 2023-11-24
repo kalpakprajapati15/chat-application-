@@ -1,10 +1,11 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
+import { FormControl } from '@angular/forms';
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
+import { Observable } from 'rxjs';
+import { Message } from 'src/app/models/message.model';
 import { User } from 'src/app/models/user.model';
 import { ChatUIService } from '../services/chat-ui.service';
-import { FormControl } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs'
-import { Message } from 'src/app/models/message.model';
 
 @Component({
   selector: 'app-chat-message',
@@ -18,6 +19,8 @@ export class ChatMessageComponent implements OnInit, OnChanges, OnDestroy {
   user: User = null;
 
   messages$: Observable<Message[]>;
+
+  ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
 
   constructor(public chatUIService: ChatUIService) {
     this.messages$ = toObservable(this.chatUIService.currentUserMessages);

@@ -1,11 +1,12 @@
-import { Component, signal, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
+import { ConfirmationService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Observable, Subject } from 'rxjs';
-import { map, startWith, switchMap, finalize, takeUntil } from 'rxjs/operators'
+import { finalize, map, startWith, switchMap, takeUntil } from 'rxjs/operators';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { AddContactComponent } from './add-contact/add-contact.component';
-import { ngxLoadingAnimationTypes } from 'ngx-loading';
 import { ChatUIService } from './services/chat-ui.service';
 
 @Component({
@@ -28,14 +29,27 @@ export class ChatComponent implements OnDestroy {
 
   destroyed$: Subject<boolean> = new Subject();
 
-  constructor(private userService: UserService, private dialogService: DialogService, public chatUIService: ChatUIService) {
+  constructor(private userService: UserService, private dialogService: DialogService, public chatUIService: ChatUIService, private confirmationService: ConfirmationService) {
     this.users$ = this.refresh$.pipe(startWith(true), switchMap(() => {
       this.loading = true;
-      return this.userService.get<{ contacts: User[] }>({ userId: '12' }, null, null, '/getContacts').pipe(map(res => {
+      return this.userService.get<{ contacts: User[] }>(null, null, null, '/getContacts').pipe(map(res => {
         this.chatUIService.users.set(res.result.contacts);
         return res.result.contacts;
       }), finalize(() => this.loading = false));
-    }))
+    }));
+
+    this.chatUIService.getContactAdded().pipe(takeUntil(this.destroyed$)).subscribe((val) => {
+      if (val) {
+        this.confirmationService.confirm({
+          message: 'A new contact has added you. Do you want to refresh now?',
+          header: 'Confirmation',
+          icon: 'pi pi-exclamation-triangle',
+          accept: () => { this.refresh$.next(true) }
+        }
+        )
+      }
+    });
+
   }
 
   addContact() {

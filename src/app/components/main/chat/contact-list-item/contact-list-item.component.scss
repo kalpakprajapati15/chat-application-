@@ -1,0 +1,16 @@
+.chat-contact-item-main-container {
+    .unread-badge {
+        float: right;
+        background-color: #22C55E;
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: 0.5rem;
+        margin-bottom: 2rem;
+    }
+}

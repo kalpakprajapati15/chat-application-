@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, signal } from '@angular/core';
 import { ChatUIService } from '../services/chat-ui.service';
 import { User } from 'src/app/models/user.model';
 import { Subscription } from 'rxjs';
@@ -15,6 +15,8 @@ export class ContactListItemComponent implements OnInit, OnDestroy {
 
   getSocketMessageSubscription: Subscription;
 
+  unreadMsgCount = signal<number>(0)
+
   constructor(public chatUIService: ChatUIService) {
 
   }
@@ -26,17 +28,21 @@ export class ContactListItemComponent implements OnInit, OnDestroy {
           if (messageMap[this.user._id]) {
             messageMap[this.user._id].push(message);
           }
-        })
+        });
+        if (this.user._id !== this.chatUIService.currentUser()?._id) {
+          this.unreadMsgCount.update(count => count + 1);
+        }
       })
     }
   }
 
   contactItemCLick(user: User) {
     this.chatUIService.setCurrentUser(user);
+    this.unreadMsgCount.set(0);
   }
 
   ngOnDestroy(): void {
-    if(this.getSocketMessageSubscription){
+    if (this.getSocketMessageSubscription) {
       this.getSocketMessageSubscription.unsubscribe();
     }
   }

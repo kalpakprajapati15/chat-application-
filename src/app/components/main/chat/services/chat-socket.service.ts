@@ -1,9 +1,8 @@
 import { Injectable, Injector } from "@angular/core";
+import { filter } from 'rxjs/operators';
 import { Message } from "src/app/models/message.model";
 import { User } from "src/app/models/user.model";
 import { SocketService } from "src/app/services/base/socket.service";
-import { AuthState } from "src/app/states/auth.state";
-import { filter } from 'rxjs/operators'
 
 @Injectable()
 export class ChatSocketService extends SocketService {
@@ -20,6 +19,10 @@ export class ChatSocketService extends SocketService {
         return this.socket.fromEvent<Message>('Client Get Message').pipe(filter((value) => {
             return value.fromId === fromUser._id;
         }))
+    }
+
+    getContactAdded() {
+        return this.socket.fromEvent('Contact Added');
     }
 
 }
