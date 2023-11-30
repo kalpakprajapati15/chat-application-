@@ -50,7 +50,7 @@ export const baseUrl = new InjectionToken<string>('baseUrl');
     NgxsModule.forRoot([AuthState]),
     NgxsStoragePluginModule.forRoot({ key: AuthState }), // to store this store even on reload
     NgxsReduxDevtoolsPluginModule.forRoot({ name: 'KPSTATE' }),
-    SocketIoModule.forRoot({ url: 'http://192.168.7.50:8080' })
+    SocketIoModule.forRoot({ url: 'http://localhost:8080' })
   ],
   providers: [
     { provide: baseUrl, useValue: environment.baseUrl },

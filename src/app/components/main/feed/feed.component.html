@@ -1,7 +1,7 @@
 <div class="feed-container height100">
     <p-confirmDialog></p-confirmDialog>
     <div #postButton class="new-post-btn-container">
-        <p-button (onClick)="addPost()" label="New Post" severity="success"></p-button>
+        <p-button id="addPost" (onClick)="addPost()" label="New Post" severity="success"></p-button>
     </div>
     <div appResize [relativeElement]="postButton" class="feed-cards-container">
         <ng-container *ngFor="let post of (posts | async)">
@@ -22,7 +22,7 @@
                         justify-content: space-between;
                         align-items: center">
                             <span style="font-weight: bold;">Created by {{post.createdBy.name}}</span>
-                            <p-button (onClick)="delete(post._id)" label="Delete" severity="danger"></p-button>
+                            <p-button id="postDeleteButton" (onClick)="delete(post._id)" label="Delete" severity="danger"></p-button>
                         </div>
                     </ng-template>
                 </p-card>

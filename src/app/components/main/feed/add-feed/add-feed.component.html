@@ -12,7 +12,7 @@
     </div>
     <div class="button-container">
         <p-button (onClick)="close()" severity="danger">Cancel</p-button>
-        <p-button (onClick)="save()" severity="success">Save</p-button>
+        <p-button id="savePost" (onClick)="save()" severity="success">Save</p-button>
     </div>
     <ngx-loading [show]="loading"
         [config]="{ backdropBorderRadius: '3px', animationType: ngxLoadingAnimationTypes.wanderingCubes }"></ngx-loading>
