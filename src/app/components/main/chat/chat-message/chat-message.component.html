@@ -1,7 +1,8 @@
-<div class="chat-message-main-container">
+<div class="chat-message-main-container" #chatContainer>
     <ng-container *ngIf="user; else noUserTemplate">
         <ng-container *ngIf="(messages$ | async) as messages">
-            <div #messageScroller *ngIf="messages.length" class="messages-container" appResize [relativeElement]="messageInput">
+            <div #messageScroller *ngIf="messages.length" class="messages-container" appResize
+                [relativeElement]="messageInput">
                 <div *ngFor="let message of messages" class="single-message"
                     [ngClass]="[message.fromId === user._id ? 'align-left' : 'align-right']">
                     {{message.text}}
@@ -14,11 +15,13 @@
 
         <div #messageInput class="message-text-input">
             <input type="text" pInputText [formControl]="chatText" (keydown)="keyDownHandler($event)">
+            <button class="pi pi-send" style="border: none; background: none; cursor: pointer;" [disabled]="!chatText.value" (click)="sendClickHandler()"></button>
         </div>
     </ng-container>
-    <ngx-loading [show]="(chatUIService.chatLoading$ | async)"
-        [config]="{ backdropBorderRadius: '3px', animationType: ngxLoadingAnimationTypes.wanderingCubes }"></ngx-loading>
 </div>
+
+<ngx-loading [show]="(chatUIService.chatLoading$ | async)" [template]="chatContainerTemplate"
+    [config]="{ backdropBorderRadius: '3px', animationType: ngxLoadingAnimationTypes.wanderingCubes }"></ngx-loading>
 
 <ng-template #noUserTemplate>
     <div>

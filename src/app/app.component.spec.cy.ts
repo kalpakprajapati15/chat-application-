@@ -25,7 +25,7 @@ describe('AppComponent', () => {
       const app = wrapper.component;
       cy.spy(app.emitter, 'emit').as('emitterSpy');
       cy.get('button').click();
-      cy.get('@emitterSpy').should('not.be.NaN');
+      cy.get('@emitterSpy').should('equal', 3);
     })
   });
 });
