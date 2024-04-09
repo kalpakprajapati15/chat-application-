@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { FormControl } from '@angular/forms';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
@@ -22,14 +22,20 @@ export class ChatMessageComponent implements OnInit, OnChanges, OnDestroy {
 
   ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
 
+  @ViewChild('chatContainer', { read: TemplateRef })
+  chatContainerTemplate: TemplateRef<any>
+
   constructor(public chatUIService: ChatUIService) {
     this.messages$ = toObservable(this.chatUIService.currentUserMessages);
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    if ('user' in changes) {
+      this.chatText.setValue('');
+    }
   }
 
-  chatText: FormControl = new FormControl()
+  chatText: FormControl = new FormControl();
 
   ngOnInit(): void {
 
@@ -38,9 +44,13 @@ export class ChatMessageComponent implements OnInit, OnChanges, OnDestroy {
   keyDownHandler(event: KeyboardEvent) {
     switch (event.key) {
       case 'Enter':
-        this.chatUIService.sendMessage(this.chatText.value);
-        this.chatText.setValue('');
+        this.sendClickHandler();
     }
+  }
+
+  sendClickHandler() {
+    this.chatUIService.sendMessage(this.chatText.value);
+    this.chatText.setValue('');
   }
 
   ngOnDestroy(): void {

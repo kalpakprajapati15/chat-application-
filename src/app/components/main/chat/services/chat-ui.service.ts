@@ -59,6 +59,10 @@ export class ChatUIService {
         return this.chatSocketService.getSocketMessage(user);
     }
 
+    getSocketMessageUpdateId() {
+        return this.chatSocketService.getSocketMessageUpdateId(this.currentUser());
+    }
+
     getMessages(): Observable<ApiResponse<Message[]>> {
         return this.chatApiService.get<Message[]>({ fromId: this.currentUser()._id });
     }

@@ -1,7 +1,5 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
-import { Socket } from 'ngx-socket-io'
-import { PostSocketService } from './services/post-socket.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +9,13 @@ import { PostSocketService } from './services/post-socket.service';
 export class AppComponent {
   title = 'node_api';
 
+  emitter: EventEmitter<number> = new EventEmitter();
+
   constructor(private primengConfig: PrimeNGConfig) {
     this.primengConfig.ripple = true;
+  }
+
+  buttonClickHandler() {
+    this.emitter.emit(3)
   }
 }

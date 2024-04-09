@@ -12,13 +12,19 @@ export class ChatSocketService extends SocketService {
     }
 
     sendMessage(message: Message) {
-        this.socket.emit('Client Message', message)
+        this.socket.emit('Client Message', message);
     }
 
     getSocketMessage(fromUser: User) {
         return this.socket.fromEvent<Message>('Client Get Message').pipe(filter((value) => {
             return value.fromId === fromUser._id;
-        }))
+        }));
+    }
+
+    getSocketMessageUpdateId(currentUser: User) {
+        return this.socket.fromEvent<Message>('Client Update Message Id').pipe(filter((value) => {
+            return value.fromId === currentUser._id;
+        }));
     }
 
     getContactAdded() {
