@@ -20,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ApiErrorDialogComponent } from './components/api-error-dialog/api-error-dialog.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { TokenInterceptor } from './interceptor/token.interceptor';
+import { SignupComponent } from './components/signup/signup.component';
 
 export const baseUrl = new InjectionToken<string>('baseUrl');
 
@@ -28,6 +29,7 @@ export const baseUrl = new InjectionToken<string>('baseUrl');
     AppComponent,
     LoginComponent,
     ApiErrorDialogComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,

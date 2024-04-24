@@ -1,0 +1,21 @@
+<div class="signup-container">
+    <div class="signup-form-container" [formGroup]="baseForm">
+        <h2>Sign Up</h2>
+        <div class="input-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" formControlName="name" placeholder="Enter your name" pInputText pTooltip tooltipEvent="focus"
+                appTooltipError>
+        </div>
+        <div class="input-group">
+            <label for="email">Email:</label>
+            <input type="text" id="email" formControlName="email" placeholder="Enter your email" pInputText pTooltip tooltipEvent="focus"
+                appTooltipError>
+        </div>
+        <div class="input-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" formControlName="password" placeholder="Enter your password" pInputText pTooltip
+                tooltipEvent="focus" appTooltipError>
+        </div>
+        <p-button severity="success" (onClick)="signup()">Sign Up</p-button>
+    </div>
+</div>

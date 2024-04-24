@@ -1,15 +1,16 @@
 import { Component, ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { focusInvalidControl } from 'src/app/utils/utils';
+
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.scss']
 })
-export class LoginComponent {
+export class SignupComponent {
 
   baseForm: FormGroup;
 
@@ -19,19 +20,18 @@ export class LoginComponent {
       this.router.navigate(['app']);
     } else {
       this.baseForm = this.fb.group({
+        name: [null, [Validators.required]],
         email: [null, [Validators.required, Validators.email]],
         password: [null, Validators.required]
       })
     }
   }
 
-  login() {
+  signup() {
     if (this.baseForm.valid) {
-      this.authService.post<{ email: string, token: string }>(this.baseForm.value, null, null, '/login').pipe(take(1)).subscribe(response => {
+      this.authService.post(this.baseForm.value, null, null, '/signup').pipe(take(1)).subscribe(response => {
         if (response.status === 'Success') {
-          localStorage.setItem('email', response.result.email);
-          localStorage.setItem('token', response.result.token);
-          this.router.navigate(['app']);
+          this.router.navigate(['login']);
         }
       });
     } else {

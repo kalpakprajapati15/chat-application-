@@ -31,8 +31,8 @@ export abstract class ApiService<T> {
         this.dialogService = injector.get(DialogService);
     }
 
-    private getUrl() {
-        const url = this.baseUrl + this.url;
+    private getUrl(childUrl?:string) {
+        const url = this.baseUrl + this.url + (childUrl ? childUrl : '');
         return url;
     }
 
@@ -49,14 +49,16 @@ export abstract class ApiService<T> {
         const url = this.getUrl() + '/fetch';
         return this.http.get(url, { params: params, headers: headers }).pipe(tap(this.openErrorDialog.bind(this)), map((response: any) => {
             return response;
-        }), catchError((err) => {
+        }), 
+        catchError((err) => {
             this.openErrorDialog(err.error)
             throw err;
-        }));
+        })
+    );
     }
 
-    post<P = T>(postObj: any, params?: any, headers?: any): Observable<ApiResponse<P>> {
-        const url = this.getUrl();
+    post<P = T>(postObj: any, params?: any, headers?: any, childUrl?:string): Observable<ApiResponse<P>> {
+        const url = this.getUrl(childUrl);
         return this.http.post(url, postObj, { params: params, headers: headers }).pipe(tap(this.openErrorDialog.bind(this)), map((response: any) => {
             return response;
         }), catchError((err) => {
