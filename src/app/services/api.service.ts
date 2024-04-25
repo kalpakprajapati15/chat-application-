@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs'
 import { catchError, map, tap } from 'rxjs/operators'
 import { DialogService } from 'primeng/dynamicdialog';
 import { ApiErrorDialogComponent } from '../components/api-error-dialog/api-error-dialog.component';
+import { MessageService } from 'primeng/api';
 
 
 export interface ApiResponse<T> {
@@ -18,7 +19,8 @@ export abstract class ApiService<T> {
 
     baseUrl: string;
     http: HttpClient;
-    dialogService: DialogService
+    dialogService: DialogService;
+    messageService: MessageService;
 
     constructor(injector: Injector) {
         try {
@@ -29,6 +31,7 @@ export abstract class ApiService<T> {
         }
         this.http = injector.get(HttpClient);
         this.dialogService = injector.get(DialogService);
+        this.messageService = injector.get(MessageService);
     }
 
     private getUrl(childUrl?:string) {
@@ -78,8 +81,11 @@ export abstract class ApiService<T> {
     }
 
     private openErrorDialog(response: any) {
-        if (response && response.status && response.status.toUpperCase() == 'FAILED') {
-            this.dialogService.open(ApiErrorDialogComponent, { data: response.message, header: 'Error' });
+        // if (response && response.status && response.status.toUpperCase() == 'FAILED') {
+        //     this.dialogService.open(ApiErrorDialogComponent, { data: response.message, header: 'Error' });
+        // }
+         if (response && response.status && response.status.toUpperCase() == 'FAILED') {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: response.message[0]});
         }
     }
 }

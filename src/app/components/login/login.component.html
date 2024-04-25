@@ -13,4 +13,6 @@
         </div>
         <p-button severity="success" (onClick)="login()">Login</p-button>
     </div>
+    <ngx-loading [show]="loading"
+    [config]="{ backdropBorderRadius: '3px', animationType: ngxLoadingAnimationTypes.wanderingCubes }"></ngx-loading>
 </div>

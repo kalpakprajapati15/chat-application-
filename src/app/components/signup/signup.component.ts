@@ -1,7 +1,8 @@
 import { Component, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { take } from 'rxjs';
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
+import { finalize, take } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { focusInvalidControl } from 'src/app/utils/utils';
 
@@ -13,6 +14,10 @@ import { focusInvalidControl } from 'src/app/utils/utils';
 export class SignupComponent {
 
   baseForm: FormGroup;
+
+  ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
+
+  loading: boolean = false;
 
   constructor(public elementRef: ElementRef, private fb: FormBuilder, private authService: AuthService, private router: Router) {
     const xToken = localStorage.getItem('token');
@@ -29,7 +34,8 @@ export class SignupComponent {
 
   signup() {
     if (this.baseForm.valid) {
-      this.authService.post(this.baseForm.value, null, null, '/signup').pipe(take(1)).subscribe(response => {
+      this.loading = true;
+      this.authService.post(this.baseForm.value, null, null, '/signup').pipe(take(1), finalize(()=>this.loading=false)).subscribe(response => {
         if (response.status === 'Success') {
           this.router.navigate(['login']);
         }
