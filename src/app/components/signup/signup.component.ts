@@ -2,7 +2,7 @@ import { Component, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
-import { finalize, take } from 'rxjs';
+import { catchError, finalize, take } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { focusInvalidControl } from 'src/app/utils/utils';
 

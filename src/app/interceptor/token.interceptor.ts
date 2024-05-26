@@ -12,16 +12,18 @@ export class TokenInterceptor implements HttpInterceptor {
             req = req.clone({headers: req.headers.set('x-token', xToken)})
         }
         return next.handle(req)
-        // .pipe(catchError((response) => {
-        //     if (response instanceof HttpErrorResponse && response.status === 401) {
-        //         return authService.logout().pipe(switchMap((res)=>{
-        //             router.navigate(['login']);
-        //             return throwError(response)
-        //         }));
-        //     } else {
-        //         return throwError(response);
-        //     }
-        // }));
+        .pipe(catchError((response) => {
+            if (response instanceof HttpErrorResponse && response.status === 401) {
+                return authService.logout().pipe(switchMap((res)=>{
+                    if(res && res.status && res.status.toUpperCase() === 'SUCCESS'){
+                        router.navigate(['login']);
+                    }
+                    return throwError(response);
+                }));
+            } else {
+                return throwError(response);
+            }
+        }));
     }
 
 }

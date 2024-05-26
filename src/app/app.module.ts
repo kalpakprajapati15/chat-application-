@@ -1,4 +1,4 @@
-import { NgModule, InjectionToken } from '@angular/core';
+import { NgModule, InjectionToken, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -21,6 +21,7 @@ import { ApiErrorDialogComponent } from './components/api-error-dialog/api-error
 import { DialogService } from 'primeng/dynamicdialog';
 import { TokenInterceptor } from './interceptor/token.interceptor';
 import { SignupComponent } from './components/signup/signup.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 export const baseUrl = new InjectionToken<string>('baseUrl');
 
@@ -43,7 +44,13 @@ export const baseUrl = new InjectionToken<string>('baseUrl');
     TooltipErrorModule,
     ToastModule,
     ReactiveFormsModule,
-    NgxLoadingModule.forRoot({})
+    NgxLoadingModule.forRoot({}),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
     { provide: baseUrl, useValue: environment.baseUrl },

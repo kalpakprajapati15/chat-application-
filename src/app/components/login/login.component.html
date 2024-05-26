@@ -1,10 +1,15 @@
 <div class="login-container">
-    <div class="login-form-container" [formGroup]="baseForm">
+    <div class="login-form-container" [formGroup]="baseForm" (ngSubmit)="login()">
+        <div style="font-size: small; color: red;" *ngIf="apiError">
+            {{apiError}}
+        </div>
         <h2>Login</h2>
         <div class="input-group">
             <label for="email">Email:</label>
             <input type="text" id="email" formControlName="email" placeholder="Enter your email" pInputText pTooltip tooltipEvent="focus"
                 appTooltipError>
+            <!-- <span style="color: red; font-size: small; float: left;" *ngIf="baseForm.controls['email'].touched && baseForm.controls['email']?.errors && baseForm.controls['email']?.errors['required']">This is required</span>
+            <span style="color: red; font-size: small; float: left;" *ngIf="baseForm.controls['email'].touched && baseForm.controls['email']?.errors && baseForm.controls['email']?.errors['email']">Invalid Email</span> -->
         </div>
         <div class="input-group">
             <label for="password">Password:</label>
