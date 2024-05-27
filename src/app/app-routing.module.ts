@@ -1,9 +1,11 @@
 import { Injectable, NgModule } from '@angular/core';
-import { PreloadAllModules, PreloadingStrategy, Route, RouterModule, Routes } from '@angular/router';
+import { NoPreloading, PreloadAllModules, PreloadingStrategy, Route, RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 import { SignupComponent } from './components/signup/signup.component';
 import { Observable, of } from 'rxjs';
+import { FeedComponent } from './components/main/feed/feed.component';
+import { MainComponent } from './components/main/main.component';
 @Injectable({
   providedIn: 'root'
 })export class CustomPreloadingStrategy implements PreloadingStrategy {
@@ -21,7 +23,20 @@ const routes: Routes = [
   },
   {
     path: "app",
-    loadChildren: () => import('./components/main/main.module').then(m => m.MainModule),
+    // loadChildren: () => import('./components/main/main.module').then(m => m.MainModule),
+    component: MainComponent,
+    children: [
+        {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'feed'
+        },
+        {
+            path: 'feed',
+            component: FeedComponent,
+            canActivate: [AuthGuard]
+        }
+    ],
     data: {preload: false},
     canActivate: [AuthGuard]
   },

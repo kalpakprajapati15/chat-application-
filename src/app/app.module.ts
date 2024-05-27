@@ -22,6 +22,8 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { TokenInterceptor } from './interceptor/token.interceptor';
 import { SignupComponent } from './components/signup/signup.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { PostService } from './services/post.service';
+import { MainModule } from './components/main/main.module';
 
 export const baseUrl = new InjectionToken<string>('baseUrl');
 
@@ -38,6 +40,7 @@ export const baseUrl = new InjectionToken<string>('baseUrl');
     InputTextModule,
     AppRoutingModule,
     HttpClientModule,
+    MainModule,
     ResizeModule,
     TooltipModule,
     ButtonModule,
@@ -56,7 +59,8 @@ export const baseUrl = new InjectionToken<string>('baseUrl');
     { provide: baseUrl, useValue: environment.baseUrl },
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
     MessageService,
-    DialogService
+    DialogService,
+    PostService
   ],
   bootstrap: [AppComponent]
 })

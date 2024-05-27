@@ -5,6 +5,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MainComponent } from './main.component';
 import { ResizeModule } from 'src/app/directives/resize/resize.module';
 import { FeedModule } from './feed/feed.module';
+import { PostService } from 'src/app/services/post.service';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,9 @@ import { FeedModule } from './feed/feed.module';
   ],
   bootstrap:[
     MainComponent
+  ],
+  providers:[
+    PostService
   ]
 })
 export class MainModule { }
