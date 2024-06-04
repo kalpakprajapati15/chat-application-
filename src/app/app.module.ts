@@ -25,9 +25,22 @@ import { AuthState } from './states/auth.state';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { SocketIoModule } from 'ngx-socket-io';
+import { ErrorInputModule } from './error-input/error-input.module';
 
 export const baseUrl = new InjectionToken<string>('baseUrl');
+const defaultErrors: {
+  [key: string]: any;
+} = {
+  required: () => `This field is required`,
+  minlength: ({ requiredLength, actualLength }: any) => `Name must be at least ${requiredLength} characters long.`,
+  forbiddenName: () => 'Name cannot be Bob.',
+  email: ()=> "Not a valid email"
+};
 
+export const FORM_ERRORS = new InjectionToken('FORM_ERRORS', {
+  providedIn: 'root',
+  factory: () => defaultErrors,
+});
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,13 +63,14 @@ export const baseUrl = new InjectionToken<string>('baseUrl');
     NgxsModule.forRoot([AuthState]),
     NgxsStoragePluginModule.forRoot({ key: AuthState }), // to store this store even on reload
     NgxsReduxDevtoolsPluginModule.forRoot({ name: 'KPSTATE' }),
-    SocketIoModule.forRoot({ url: 'http://localhost:8080' })
+    SocketIoModule.forRoot({ url: 'http://localhost:8080' }),
+    ErrorInputModule
   ],
   providers: [
     { provide: baseUrl, useValue: environment.baseUrl },
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     MessageService,
-    DialogService
+    DialogService,
   ],
   bootstrap: [AppComponent]
 })

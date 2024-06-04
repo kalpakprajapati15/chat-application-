@@ -21,6 +21,7 @@
     "@ngxs/devtools-plugin": "^3.8.1",
     "@ngxs/storage-plugin": "^3.8.1",
     "@ngxs/store": "^3.8.1",
+    "madge": "^7.0.0",
     "ngx-loading": "^15.0.0",
     "ngx-socket-io": "^4.5.1",
     "primeicons": "^6.0.1",

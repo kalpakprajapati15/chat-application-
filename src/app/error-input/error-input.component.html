@@ -1,0 +1,6 @@
+<div [formGroup]="formGroupDirective.form">
+
+  <input #inputRef type="text" class="form-control"
+  [formControlName]="controlName">
+  <div class="alert alert-danger">{{ message$ | async }}</div>
+</div>

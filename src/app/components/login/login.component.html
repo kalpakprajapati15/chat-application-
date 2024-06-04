@@ -3,8 +3,9 @@
         <h2>Login</h2>
         <div class="input-group">
             <label for="email">Email:</label>
-            <input type="text" id="email" formControlName="email" placeholder="Enter your email" pInputText pTooltip tooltipEvent="focus"
-                appTooltipError>
+            <!-- <input type="text" id="email" formControlName="email" placeholder="Enter your email" pInputText pTooltip tooltipEvent="focus"
+                appTooltipError> -->
+            <app-error-input [controlName]="'email'" ></app-error-input>
         </div>
         <div class="input-group">
             <label for="password">Password:</label>

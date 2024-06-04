@@ -34,7 +34,7 @@ export class TooltipErrorDirective implements AfterViewInit, OnDestroy {
   // }
 
 
-  constructor(private elementRef: ElementRef, private tooltip: Tooltip, private formControlName: FormControlName) {
+  constructor(private tooltip: Tooltip, private formControlName: FormControlName) {
 
   }
 
