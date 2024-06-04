@@ -25,7 +25,7 @@ export class ErrorInputComponent implements AfterViewInit, OnDestroy {
       const control = this.formGroupDirective.control.get(this.controlName);
       const blurEvent = fromEvent(this.inputRef.nativeElement, 'blur');
       if (control) {
-        this.subscription = merge(control.statusChanges.pipe(distinctUntilChanged()), blurEvent)
+        this.subscription = merge(control.valueChanges.pipe(distinctUntilChanged()), blurEvent)
           .subscribe((val) => {
             const controlErrors = control.errors;
             console.log(val,"calles")
