@@ -39,8 +39,9 @@ export class ChatUIService {
             if (!messageMap[user._id]) {
                 this.chatLoading$.next(true);
                 this.getMessages().pipe(take(1), finalize(() => this.chatLoading$.next(false))).subscribe(response => {
-                    this.messageMap.mutate((oMap) => {
+                    this.messageMap.update((oMap) => {
                         oMap[user._id] = response.result;
+                        return oMap;
                     })
                 })
             }
@@ -52,7 +53,7 @@ export class ChatUIService {
         const fromUser = this.store.selectSnapshot(AuthState.user)._id
         const message: Message = { text, toId: toUser._id, fromId: fromUser, _id: null }
         this.chatSocketService.sendMessage(message);
-        this.messageMap.mutate((messageMap) => messageMap[toUser._id].push(message));
+        this.messageMap.update((messageMap) => {messageMap[toUser._id].push(message); return messageMap});
     }
 
     getSocketMessage(user: User) {
